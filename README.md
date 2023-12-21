@@ -1,8 +1,20 @@
 # Data Basics (EcoClim)
-## Learn the basics of manipulating data
 
+### Learn the basics of manipulating data in R
 
-Load the required libraries
+In this workshop you will:
+
+* Download climate data from daymetr 
+* Format date elements
+* Manipulate data with tidyverse: 
++ Use select() to choose variables from a data frame.
++ Use filter() to choose data based on values.
++ Use mutate() to create new variables.
++ Use group_by() and summarize() to work with subsets of data.
++ Use full_join() to merge datasets
+* Write basic functions
+
+### Load the required libraries
 ```{r, include=T}
 library(climateR)
 library(terra)
