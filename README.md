@@ -4,7 +4,7 @@
 
 In this workshop you will:
 
-1. Download climate data from daymetr 
+1. Download climate data with daymetr 
 2. Format date elements
 3. Manipulate data with tidyverse: 
     + Use select() to choose variables from a data frame.
@@ -13,18 +13,24 @@ In this workshop you will:
     + Use group_by() and summarize() to work with subsets of data.
     + Use full_join() to merge datasets
 4. Write basic functions
-5. Introduction to ggplot2
+5. Visualize data with ggplot2
 
 ### Load the required libraries
 ```{r, include=T}
 library(daymetr)
 library(tidyverse)
 ```
+## What is the climate of Yale-Myers Forest?
 
-In this workshop we will explore climate data using climateR. 
+Yale-Myers Forest is a 7,840 acre research forest Connecticut. It is a hub for education, research, and harvesting operations within the Yale School Forest System. The forest primarily consists of mixed hardwoods on glacial till soils, featuring a significant presence of hemlock, scattered white pine stands from old field origins, and red pine plantations established in the 1940s. 
+
+To explore the climate of the area, download daily daymet data for (-72.123859, 41.952909):
 
 ```{r, include=T}
-?getDaymet
+Yale.Myers.daymet <- download_daymet( lat =  41.952909,
+                                      lon = -72.123859,
+                                      start = 1990,
+                                      end = 2018)
 ```
 
 ```{r, include=T}
