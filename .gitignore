@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+
+EcoClim_script.R
+EcoClim_out.RDATA
