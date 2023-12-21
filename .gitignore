@@ -2,8 +2,9 @@
 .Rhistory
 .RData
 .Ruserdata
-.proj
+.Rproj
 EcoClim_script.R
 EcoClim_out.RDATA
 InroFUNCTIONS.R
 README.html
+EcoClim.Rproj
