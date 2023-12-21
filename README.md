@@ -13,6 +13,7 @@ In this workshop you will:
     + Use group_by() and summarize() to work with subsets of data.
     + Use full_join() to merge datasets
 4. Write basic functions
+5. Introduction to ggplot2
 
 ### Load the required libraries
 ```{r, include=T}
