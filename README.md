@@ -16,10 +16,8 @@ In this workshop you will:
 
 ### Load the required libraries
 ```{r, include=T}
-library(climateR)
-library(terra)
-library(sf)
-library(AOI)
+library(daymetr)
+library(tidyverse)
 ```
 
 In this workshop we will explore climate data using climateR. 
