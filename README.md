@@ -19,8 +19,8 @@ Below you will find a list of functions and definitions of annual climatic varia
 - MINDD0:  Negative degree-days using minimum daily temperature for calculation (days)
 - SDAY :   Date (Julian Date) of last freezing temperature in spring 
 - FDAY : Date (Julian Date) of first freezing temperature in autumn
-- GSDD5 : Mean degree-days > 5 ̊C between SDAY and FDAY. MMAX Mean temperature in warmest
-month (days)
+- GSDD5 : Mean degree-days > 5 ̊C between SDAY and FDAY. 
+- MMAX :  Mean temperature in warmest month (days)
 - TDIFF : Summer–winter temperature differential: MTWM-MTCM MAPDD5 (MAP X DD5)/1000 ( ̊C)
 
 ##  PRECIPITATION
