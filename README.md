@@ -24,7 +24,11 @@ library(tidyverse)
 
 Yale-Myers Forest is a 7,840 acre research forest Connecticut. It is a hub for education, research, and harvesting operations within the Yale School Forest System. The forest primarily consists of mixed hardwoods on glacial till soils, featuring a significant presence of hemlock, scattered white pine stands from old field origins, and red pine plantations established in the 1940s. 
 
-To explore the climate of the area, download daily daymet data for (-72.123859, 41.952909):
+To explore the climate of the area, download daily daymet data for (41.952909, -72.123859). Review the arguments for the download_daymet() function.
+```{r, include=T}
+?download_daymet()
+```
+To use the download_daymet() function you need the latitude, longitude, start (1990), and end (2018). 
 
 ```{r, include=T}
 Yale.Myers.daymet <- download_daymet( lat =  41.952909,
@@ -32,6 +36,7 @@ Yale.Myers.daymet <- download_daymet( lat =  41.952909,
                                       start = 1990,
                                       end = 2018)
 ```
+
 
 ```{r, include=T}
 AOI <- aoi_get(country="USA")
