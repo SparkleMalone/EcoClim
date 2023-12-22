@@ -54,7 +54,7 @@ Format the time variables and create a date in the format YYYY-mm-dd :
 ```{r, include=T}
 Yale.Myers$year.day <- paste( Yale.Myers$year, Yale.Myers$yday, sep="-") %>% as.Date(format="%Y-%j")
 ```
-```{r, include=F, ecoh=F}
+```{r, include=F, ecoh=T}
 head( Yale.Myers)
 ```
 
