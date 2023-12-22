@@ -15,6 +15,8 @@ In this workshop you will:
 4. Write basic functions
 5. Visualize data with ggplot2
 
+# Datamanipulation with tidyverse
+
 ### Load the required libraries
 ```{r, include=T}
 library(daymetr)
@@ -51,63 +53,100 @@ Evaluate the data types:
 summary( Yale.Myers)
 ```
 Format the time variables and create a date in the format YYYY-mm-dd :
+
+Step 1. Use the year and day of the year to create a year.day variable.
 ```{r, include=T}
 Yale.Myers$year.day <- paste( Yale.Myers$year, Yale.Myers$yday, sep="-") %>% as.Date(format="%Y-%j")
 ```
-```{r, include=F, ecoh=T}
-head( Yale.Myers)
+Look at your work:
+```{r, include=T}
+Yale.Myers$year.day
+```
+Step 2. Format the year.day as YYYY-mm-dd and convert to a date.
+```{r, include=T}
+Yale.Myers$date <- format( Yale.Myers$year.day, "%Y-%m-%d") %>% as.Date()
+```
+Look at your work:
+```{r, include=T}
+Yale.Myers$date
+```
+Check the class:
+```{r, include=T}
+class(Yale.Myers$date)
+```
+The function mutate() creates new columns that are functions of existing variables. Use mutate() to create a month and Julian day (JulianD) from the formated date.
+
+```{r, include=T}
+Yale.Myers <- Yale.Myers %>% mutate( month = format( Yale.Myers$date, format="%m" ),
+                     julianD = format( Yale.Myers$date, format="%j") )
+```
+With Daymet data you have to calculate the mean temperature using tmax and tmin:
+
+```{r, include=T}
+Yale.Myers$tmean = (0.606 *as.numeric(Yale.Myers$tmax..deg.c.)) + 0.394 * as.numeric(Yale.Myers$tmin..deg.c.)
+```
+Look at your work:
+```{r, include=T}
+summary(Yale.Myers$tmean)
 ```
 
-Yale.Myers$date <-format( Yale.Myers$year.day, "%Y-%m-%d")%>%  as.Date()
-class(Yale.Myers$date)
-
-Yale.Myers <-Yale.Myers %>% mutate(month = format(Yale.Myers$date, format="%m"),
-                     julianD = format(Yale.Myers$date, format="%j") )
-
-# With Daymet data you have to calculate the mean temperature:
-
-Yale.Myers$tmean = (0.606 *as.numeric(Yale.Myers$tmax..deg.c.)) + 0.394 * as.numeric(Yale.Myers$tmin..deg.c.)
-
-summary(Yale.Myers$tmean)
-
-# Rename columns:
-Yale.Myers.rn <-Yale.Myers %>% mutate(tmax=tmax..deg.c., tmin=tmin..deg.c., prcp = prcp..mm.day.)
-
+Use the function rename() to rename tmax..deg.c to tmax, tmin..deg.c to tmin, and prcp..mm.day. to prcp:
+```{r, include=T}
+Yale.Myers.rn <-Yale.Myers %>% rename(tmax=tmax..deg.c., tmin=tmin..deg.c., prcp = prcp..mm.day.)
+```
+Look at your work:
+```{r, include=T}
 head(Yale.Myers.rn )
-
-# Subset the dataset to include only [date, month, year, julianD, tmax..deg.c., tmin..deg.c., tmean, and prcp..mm.day.] :
-
+```
+Subset the dataset to include only [date, month, year, julianD, tmax, tmin, tmean, and prcp] :
+```{r, include=T}
 Yale.Myers.sub <-Yale.Myers.rn %>% select(date, month, year, julianD, tmax, tmin, tmean, prcp)
+```
+Look at your work:
+```{r, include=T}
 head(Yale.Myers.sub )
-
-# Create Annual and monthly summaries of conditions
+```
+Create an annual summary of conditions using goup_by() and summarise() :
+```{r, include=T}
 Yale.Myers.annual <-Yale.Myers.sub %>% group_by(year) %>% summarise( tmax = max(tmax), tmin = min(tmin), tmean = mean(tmean), prcp = sum(prcp))
-
+```
+Look at your work:
+```{r, include=T}
 head(Yale.Myers.annual)
-  
-Yale.Myers.monthly <-Yale.Myers.sub %>% group_by(month) %>% summarise( tmax = max(tmax), tmin = min(tmin), tmean = mean(tmean), prcp = sum(prcp))
+```
 
+Determine the average monthly conditions using goup_by() and summarise() :
+```{r, include=T}
+Yale.Myers.monthly <-Yale.Myers.sub %>% group_by(month) %>% summarise( tmax = max(tmax), tmin = min(tmin), tmean = mean(tmean), prcp = sum(prcp)/29)
+```
+Look at your work:
+```{r, include=T}
 head(Yale.Myers.monthly)
-
+```
+Determine the average conditions using goup_by() and summarise() by both year and month:
+```{r, include=T}
 Yale.Myers.yearmon <-Yale.Myers.sub %>% group_by(month, year) %>% summarise( tmax = max(tmax), tmin = min(tmin), tmean = mean(tmean), prcp = sum(prcp))
-
+```
+Look at your work:
+```{r, include=T}
 head(Yale.Myers.yearmon )
+```
 
-# Subset mean annual temperate and year. Then rename tmean with "Yale-Myers"
-
+Subset the mean annual temperate and year from the annual summary. Then rename tmean with "Yale-Myers" :
+```{r, include=T}
 Yale.Myers.annual.tmean <- Yale.Myers.annual %>% mutate(Yale.Myers = tmean) %>% select(year, Yale.Myers)
-
+```
+Look at your work:
+```{r, include=T}
 head(Yale.Myers.annual.tmean)
-
-
-# Find a location of interest within the USA in google earth (https://earth.google.com/) and record the latitude and longitude in decimal degrees. Next, download Daymet data for that location. Join your location information with Yale.Myers.annual.tmean in a dataframe called climateCompare:
-
-YS.daymet <- download_daymet( lat =  44.434933,
-                                      lon = -110.595371,
-                                      start = 1990,
-                                      end = 2018)
-
-# ....
-
+```
+Save the two files, Yale.Myers and Yale.Myers.sub, in a .RDTAT object. You will need this for the post workshop assessment:
+```{r, include=T}
 save(Yale.Myers, Yale.Myers.sub, file="EcoClim_out.RDATA" )
+```
 
+# Introduction to ggplot2
+
+
+## Post-Workshop Assessment:
+Find a location of interest within the USA in google earth (https://earth.google.com/) and record the latitude and longitude in decimal degrees. Next, download Daymet data for that location. Join your location information with Yale.Myers.annual.tmean in a dataframe called climateCompare:
