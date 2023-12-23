@@ -9,7 +9,7 @@ Below you will find a list of functions and definitions of annual climatic varia
 - D100 :   The Julian date the sum of degree-days >5°C reaches 100
 - DD0  :   The sum of days > 0 ̊C 
 - DD5  :   The sum of days > 5 ̊C
-- FDAY :   First freeze day (Julian Date)
+- FDAY :   First freeze day of autumn (Julian Date)
 - MAT  :   Mean Annual Temperature ( ̊C)
 - FFP  :   Length of frost free period (days)
 - MMAX :   Mean Maximum Temperature ( ̊C)
